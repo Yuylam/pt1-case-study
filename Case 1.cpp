@@ -58,9 +58,13 @@ int main(){
 	while(studentIndex == -1);
 
 	// Print Report
-	
-	
-	
+	cout
+	<< "EXAM RESULT\n"
+	<< "Name: " << name[studentIndex] << endl
+	<< "Student ID: " << matricNumber[studentIndex] << endl
+	<< "Number of questions missed: " << compareAns(studentIndex, studentAns, correctAns, correctedAns) << endl
+	<< printMissQuestion(studentIndex, studentAns, correctAns, correctedAns)
+	<< "Percentage: " << percentage[studentIndex] << "%, GRED: " << grade[studentIndex];
 	
 	return 0;
 }

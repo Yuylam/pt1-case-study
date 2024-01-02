@@ -68,3 +68,42 @@ int main(){
 	
 	return 0;
 }
+
+
+ void printMissQuestion (int stuIndex, char stuAns [][20], char correctAns [], bool TF [] ) {
+	
+	int wrongQues ;
+	wrongQues = compare (stuIndex, stuAns, correctAns, TF) ; 
+	cout << "List of the questions missed : \n " 
+		 << left << setw(15) << "Question " << setw(15) << "Correct Answer" << setw(15) << "Student Answer \n" ;
+	
+	for ( int i = 0; i < 21; i++ ){
+		
+	if ( TF == 1 )
+		continue ;
+		
+	else {             // when TF == 0, print out the wrong ans
+		cout << left << setw(15) << ++i << setw(15) << correctAns [i] << setw(15) << stuAns [stuIndex][i] << endl ;
+	}
+	}
+	
+} 
+
+
+
+void printReport(string name[], string id[], int percentage[], char grade[] ){
+	
+	ofstream outFile ;
+	outFile.open (" Output1.txt") ;
+	
+	outFile << "LIST OF STUDENTS AND GRADES " << endl ;
+	
+	outFile << left << setw(15) << "NAME " << setw(15) << "ID" << setw(15) << "PERCENTAGE" << setw(15) << "GRADE" << endl ;
+	for (int stuIndex = 0; stuIndex < 16; stuIndex++ ){
+
+		outFile << setw(15) << name [stuIndex] << setw(15) << id [stuIndex] << setw(15) << percentage[stuIndex] << setw(15) << grade[stuIndex]<< endl ;
+	
+	}
+	
+	outFile.close() ;
+}

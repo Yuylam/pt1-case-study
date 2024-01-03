@@ -28,6 +28,7 @@ int main(){
 	// Find percentage and grade
 	for (int i = 0; i < QUES_NUM; i++){
 		missNum = compareAns(studentIndex, studentAns, correctAns, correctedAns);
+		
 		percentage[i] = (QUES_NUM - missNum) / static_cast<double>(QUES_NUM) * 100;
 		if(percentage >= 80)
 			grade[i] = 'A';
@@ -67,4 +68,38 @@ int main(){
 	<< "Percentage: " << percentage[studentIndex] << "%, GRED: " << grade[studentIndex];
 	
 	return 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+int compareAns(int loc, char ans[][20], char cans[], bool TF[]) {  
+	int miss=0;
+        for (int j = 0; j < 20; j++) {    	
+        if (ans[loc][j] != cans[j]) {           //loc=student, j=answer
+            miss ++;
+            TF[j] = false;
+        } else {
+        	TF[j] = true;
+		}
+    }
+    return miss;				//return the number of miss question to main function
 }

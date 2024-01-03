@@ -154,5 +154,6 @@ void readFile(string name[], string matricNum[], char studentAns[][numQuestions]
 		inFile2 >> correctAns[j];
 	}
 
-    	inFile2.close()
+    	inFile2.close();
+	return stuNum;
 }

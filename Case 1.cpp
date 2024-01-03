@@ -8,7 +8,7 @@ const int numQuestions = 20;
 const int numStudents = 20;
 
 int readFile(string[], string[], char[][numQuestions], char[]);
-int compareAns(int, char[][numQuestions], char[], bool[]);
+int compareAns(int, const char[][numQuestions], char[], bool[]);
 void printMissQuestion(int, char[][numQuestions], char[], bool[]);
 void printReport(string[], string[], int[], char[], int);
 
@@ -28,8 +28,8 @@ int main()
 	studentNum = readFile(name, matricNumber, studentAns, correctAns);
 
 	// Find percentage and grade
-	for (int i = 0; i < numStudents; i++){
-		missNum = compareAns(studentIndex, studentAns, correctAns, correctedAns);
+	for (int i = 0; i < studentNum; i++){
+		missNum = compareAns(i, studentAns, correctAns, correctedAns);
 
 		percentage[i] = (numQuestions - missNum) / static_cast<double>(numQuestions) * 100;
 		if(percentage[i] >= 80)
@@ -63,7 +63,7 @@ int main()
 
 	// Print Report
 	cout
-	<< "EXAM RESULT\n"
+	<< "\nEXAM RESULT\n"
 	<< "Name: " << name[studentIndex] << endl
 	<< "Student ID: " << matricNumber[studentIndex] << endl;
 	printMissQuestion(studentIndex, studentAns, correctAns, correctedAns);
@@ -72,31 +72,38 @@ int main()
 	return 0;
 }
 
-int compareAns(int loc, char ans[][20], char cans[], bool TF[]) {  
+int compareAns(int loc, const char ans[][numQuestions], char cans[], bool TF[]) {  
 	int miss=0;
-        for (int j = 0; j < 20; j++) {    	
+    for (int j = 0; j < numQuestions; j++) {   											
         if (ans[loc][j] != cans[j]) {           //loc=student, j=answer
-            miss ++;
+            miss++;
             TF[j] = false;
         } else {
         	TF[j] = true;
+		}
 	}
-    }
     return miss;				//return the number of miss question to main function
 }
 
 void printMissQuestion (int stuIndex, char stuAns [][numQuestions], char correctAns [], bool TF []) {
   int wrongQues ;
-	wrongQues = compare (stuIndex, stuAns, correctAns, TF) ; 
-	cout << "List of the questions missed : \n " 
-      << left << setw(15) << "Question " << setw(15) << "Correct Answer" << setw(15) << "Student Answer \n" ;
+	wrongQues = compareAns (stuIndex, stuAns, correctAns, TF) ; 
+	if (wrongQues == 0){
+		cout << "Congratulations! You got all correct!\n";
+	}
+	else{
+		cout 
+		<< "List of the questions missed : \n" 
+      	<< left << setw(15) 
+		<< "Question" << setw(18) << "Correct Answer" << setw(15) << "Student Answer \n" ;
 	
-	for (int i = 0; i < numQuestions; i++){
-	  if ( TF == 1 )
-		  continue ;
-		else {             // when TF == 0, print out the wrong ans
-		  cout << left << setw(15) << ++i << setw(15) << correctAns [i] << setw(15) << stuAns [stuIndex][i] << endl ;
-	  }
+		for (int i = 0; i < numQuestions; i++){
+			if ( TF[i] == 1 )
+				continue;
+			else {             // when TF == 0, print out the wrong ans
+				cout << left << setw(18) << ++i << setw(18) << correctAns [i] << setw(15) << stuAns [stuIndex][i] << endl ;
+		  }
+		}
 	}
 } 
 
@@ -114,11 +121,11 @@ void printReport(string name[], string id[], int percentage[], char grade[], int
 	outFile.close() ;
 }
 
-void readFile(string name[], string matricNum[], char studentAns[][numQuestions], char correctAns[])
+int readFile(string name[], string matricNum[], char studentAns[][numQuestions], char correctAns[])
 {
 	int stuNum = 0;
 	ifstream inFile;
-	inFile.open("StudentAnswer.dat");
+	inFile.open("StudentAnswers.dat");
 
 	if (!inFile){
 		cerr << "ERROR. File not found.\n";
@@ -132,9 +139,9 @@ void readFile(string name[], string matricNum[], char studentAns[][numQuestions]
 		inFile >> matricNum[i];
 		
 		for (int j = 0; j < numQuestions; ++j)
-		    {
-		    	inFile >> studentAns[i][j];
-		    }
+		{
+		    inFile >> studentAns[i][j];
+		}
 		stuNum = i;
 	}
 	
@@ -155,5 +162,6 @@ void readFile(string name[], string matricNum[], char studentAns[][numQuestions]
 	}
 
     	inFile2.close();
-	return stuNum;
+    	
+    return stuNum;
 }

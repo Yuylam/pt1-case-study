@@ -7,7 +7,7 @@ using namespace std;
 const int numQuestions = 20;
 const int numStudents = 20;
 
-int readFile(string[][numQuestions], string[], char[], char[]);
+int readFile(string[], string[], char[][numQuestions], char[]);
 int compareAns(int, char[][numQuestions], char[], bool[]);
 void printMissQuestion(int, char[][numQuestions], char[], bool[]);
 void printReport(string[], string[], int[], char[], int);
@@ -32,11 +32,11 @@ int main()
 		missNum = compareAns(studentIndex, studentAns, correctAns, correctedAns);
 
 		percentage[i] = (numQuestions - missNum) / static_cast<double>(numQuestions) * 100;
-		if(percentage >= 80)
+		if(percentage[i] >= 80)
 			grade[i] = 'A';
-		else if(percentage >= 70)
+		else if(percentage[i] >= 70)
 			grade[i] = 'B';
-		else if(percentage >= 60)
+		else if(percentage[i] >= 60)
 			grade[i] = 'C';
 		else
 			grade[i]  = 'F';
@@ -45,6 +45,7 @@ int main()
 	printReport(name, matricNumber, percentage, grade, studentNum);
 
 	// Get Matric Number and find student index
+	string studentID;
 	do{
 		cout << "Enter the student ID: ";
 		cin >> studentID;
@@ -64,10 +65,9 @@ int main()
 	cout
 	<< "EXAM RESULT\n"
 	<< "Name: " << name[studentIndex] << endl
-	<< "Student ID: " << matricNumber[studentIndex] << endl
-	<< "Number of questions missed: " << compareAns(studentIndex, studentAns, correctAns, correctedAns) << endl
-	<< printMissQuestion(studentIndex, studentAns, correctAns, correctedAns)
-	<< "Percentage: " << percentage[studentIndex] << "%, GRED: " << grade[studentIndex];
+	<< "Student ID: " << matricNumber[studentIndex] << endl;
+	printMissQuestion(studentIndex, studentAns, correctAns, correctedAns);
+	cout << "Percentage: " << percentage[studentIndex] << "%, GRED: " << grade[studentIndex];
 
 	return 0;
 }
@@ -80,7 +80,7 @@ int compareAns(int loc, char ans[][20], char cans[], bool TF[]) {
             TF[j] = false;
         } else {
         	TF[j] = true;
-		}
+	}
     }
     return miss;				//return the number of miss question to main function
 }
@@ -116,6 +116,7 @@ void printReport(string name[], string id[], int percentage[], char grade[], int
 
 void readFile(string name[], string matricNum[], char studentAns[][numQuestions], char correctAns[])
 {
+	int stuNum = 0;
 	ifstream inFile;
 	inFile.open("StudentAnswer.dat");
 
@@ -124,14 +125,17 @@ void readFile(string name[], string matricNum[], char studentAns[][numQuestions]
 		exit(1);
     	}
 
-	for (int i = 0; i < numStudents; ++i)
+	string temp;
+	for (int i = 0; inFile >> temp; ++i)
 	{
-		inFile >> name[i] >> matricNum[i];
+		name[i] = temp;
+		inFile >> matricNum[i];
 		
 		for (int j = 0; j < numQuestions; ++j)
 		    {
 		    	inFile >> studentAns[i][j];
 		    }
+		stuNum = i;
 	}
 	
 	inFile.close();

@@ -7,70 +7,29 @@ using namespace std;
 const int numQuestions = 20;
 const int numStudents = 20;
 
-void readFile(string name[20], string matricNum[10], char studentAns[30], char correctAns[30])
-{
-    ifstream inFile;
-    inFile.open("StudentAnswer.dat");
-
-    if (!inFile)
-    {
-    cerr << "ERROR. File not found.\n";
-    exit(1);
-    }
-
-for (int i = 0; i < numStudents; ++i)
-{
-inFile >> name[i] >> matricNum[i];
-
-for (int j = 0; j < numQuestions; ++j)
-    {
-    inFile >> studentAns[i][j];
-    }
-}
-
-inFile.close();
-
-    ifstream inFile2;
-    inFile2.open("CorrectAns.txt");
-
-    if(!inFile2)
-{
-        cerr << "Error. File not found.\n";
-        exit(1);
-}
-
-    for (int j = 0; j < numQuestions; ++j)
-    {
-        inFile2 >> correctAns[j];
-    }
-
-    inFile2.close()
-
-}
-int compareAns(int, char[][20], char[], bool[]);
-void printMissQuestion(int, char[][20], char[], bool[]);
+int readFile(string[][numQuestions], string[], char[], char[]);
+int compareAns(int, char[][numQuestions], char[], bool[]);
+void printMissQuestion(int, char[][numQuestions], char[], bool[]);
 void printReport(string[], string[], int[], char[]);
 
 int main(){
-	string name[10], 				// Student name read from file
-	       matricNumber[10];			// Student ID read from file
-	char studentAns[10][20], 			// Student answer read from file
-	     correctAns[20], 				// Correct answer read from file
-	     grade[10];					// Grade computed of each student
-	bool correctedAns[20];
-	int percentage[10];				// Percentage computed of each student
-	int studentNum,
-	    studentIndex = -1,
-	    missNum;
-	const int QUES_NUM = 20;
-	ofstream outFile;
+	string name[numStudents], 				// Student name read from file
+	       matricNumber[numStudents];			// Student ID read from file
+	char studentAns[numStudents][numQuestions], 		// Student answer read from file
+	     correctAns[numQuestions], 				// Correct answer read from file
+	     grade[numStudents];				// Grade computed of each student
+	bool correctedAns[numQuestions];			// Boolen that stores the correct or false of each question for a student
+	int percentage[numStudents];				// Percentage computed of each student
+	int studentNum,						// Number of students in the file
+	    studentIndex = -1,					// Location of the student in an array
+	    missNum;						// Number of missed question of a student
 
 	studentNum = readFile(name, matricNumber, studentAns, correctAns);
 
 	// Find percentage and grade
-	for (int i = 0; i < QUES_NUM; i++){
+	for (int i = 0; i < numStudents; i++){
 		missNum = compareAns(studentIndex, studentAns, correctAns, correctedAns);
-		percentage[i] = (QUES_NUM - missNum) / static_cast<double>(QUES_NUM) * 100;
+		percentage[i] = (numQuestions - missNum) / static_cast<double>(QUES_NUM) * 100;
 		if(percentage >= 80)
 			grade[i] = 'A';
 		else if(percentage >= 70)
@@ -109,4 +68,43 @@ int main(){
 	<< "Percentage: " << percentage[studentIndex] << "%, GRED: " << grade[studentIndex];
 
 	return 0;
+}
+
+void readFile(string name[], string matricNum[], char studentAns[][numQuestions], char correctAns[])
+{
+	ifstream inFile;
+	inFile.open("StudentAnswer.dat");
+
+	if (!inFile){
+		cerr << "ERROR. File not found.\n";
+		exit(1);
+    	}
+
+	for (int i = 0; i < numStudents; ++i)
+	{
+		inFile >> name[i] >> matricNum[i];
+		
+		for (int j = 0; j < numQuestions; ++j)
+		    {
+		    	inFile >> studentAns[i][j];
+		    }
+	}
+	
+	inFile.close();
+
+	ifstream inFile2;
+	inFile2.open("CorrectAns.txt");
+
+    	if(!inFile2)
+	{
+	        cerr << "Error. File not found.\n";
+	        exit(1);
+	}
+
+	for (int j = 0; j < numQuestions; ++j)
+	{
+		inFile2 >> correctAns[j];
+	}
+
+    	inFile2.close()
 }

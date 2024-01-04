@@ -142,7 +142,7 @@ int readFile(string name[], string matricNum[], char studentAns[][numQuestions],
 		{
 		    inFile >> studentAns[i][j];
 		}
-		stuNum = i;
+		stuNum = i + 1;
 	}
 	
 	inFile.close();

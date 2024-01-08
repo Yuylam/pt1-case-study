@@ -15,16 +15,27 @@ void readFile(int sales[][12], string stores[]){
 }
 
 double grandTotalSales(double totalSalesStore[]){
-	
-	return grandTotal;
+	int sum = 0;
+	for (int i = 0; i < 5; i++){
+		sum += totalSalesStore[i];
+	}
+	return sum;
 }
 
-double totalSalesByMonth(int sales[5][12], int i){
-	
+int totalSalesByMonth(int sales[5][12], int month){
+	int sum = 0;
+	for (int i = 0; i < 5; i++){
+		sum += sales[i][month];
+	}
+	return sum;
 }
 
-double totalSalesByStore(int sales[5][12], int i){
-	
+int totalSalesByStore(int sales[5][12], int store){
+	int sum = 0;
+	for (int i = 0; i < 12; i++){
+		sum += sales[store][i];
+	}
+	return sum;
 }
 
 void highestSale(double& highSales, int& highMonth, string& highStore, int sales[][12]){

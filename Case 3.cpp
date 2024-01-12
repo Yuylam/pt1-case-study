@@ -12,7 +12,7 @@ int totalSalesByStore(int[5][12], int);
 void highestSale(int&, int&, string&, int[][12]);
 void lowestSale(int&, int&, string&, int[][12]);
 
-string stores[5];
+string stores[5] = {"Johor Bahru", "Segamat", "Batu Pahat", "Kota Tinggi", "Mersing"};
 
 int main(){
     // Define Variable
@@ -22,7 +22,7 @@ int main(){
     int totalSalesStore[5];
     int sales[5][12], store;
     int i, month;
-    string stores[5];
+    string stores[5] = {"Johor Bahru", "Segamat", "Batu Pahat", "Kota Tinggi", "Mersing"};
     string Month[12] = {"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"};
 
     int highSales, lowSales;
@@ -144,11 +144,11 @@ void highestSale(int& highSales, int& highMonth, string& highStore, int sales[][
 
             if (sales[i][j] > highSales)
             {highSales = sales[i][j];
-            highStore = stores[i];
-            highMonth = j;
+                highStore = stores[i];
+                highMonth = j+1;
             }
         }
-        }
+    }
 }
 
 void lowestSale(int& lowSales, int& lowMonth, string& lowStore, int sales[][12]){
@@ -159,8 +159,8 @@ void lowestSale(int& lowSales, int& lowMonth, string& lowStore, int sales[][12])
 
             if (sales[i][j] < lowSales)
             {lowSales = sales[i][j];
-            lowStore = stores[i];
-            lowMonth = j;
+                lowStore = stores[i];
+                lowMonth = j+1;
             }
         }
     }

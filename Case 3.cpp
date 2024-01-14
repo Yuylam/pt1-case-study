@@ -12,8 +12,6 @@ int totalSalesByStore(int[5][12], int);
 void highestSale(int&, int&, string&, int[][12]);
 void lowestSale(int&, int&, string&, int[][12]);
 
-string stores[5] = {"Johor Bahru", "Segamat", "Batu Pahat", "Kota Tinggi", "Mersing"};
-
 int main(){
     // Define Variable
     int grandTotal, monthlyTotalSales[12];
@@ -22,7 +20,7 @@ int main(){
     int totalSalesStore[5];
     int sales[5][12], store;
     int i, month;
-    string stores[5] = {"Johor Bahru", "Segamat", "Batu Pahat", "Kota Tinggi", "Mersing"};
+    string stores[5];
     string Month[12] = {"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"};
 
     int highSales, lowSales;
@@ -45,7 +43,7 @@ int main(){
          <<	"Average sales per month: RM " << fixed << setprecision(2) << setw(10) << averageSales*1000 << endl << endl;
 
     // The highest sales' store, month and the amount of sales
-    highestSale(highSales, highMonth, highStore, sales);
+    highestSale(highSales, highMonth, highStore, sales, stores);
     cout << "The highest sales:" << endl
          << "------------------" << endl
          << "Store: " << highStore << endl
@@ -53,7 +51,7 @@ int main(){
          << "Sales: RM " << fixed << setprecision(2) << setw(10) << highSales*1000.00 << endl << endl;
 
     // The lowest sales' store, month and the amount of sales
-    lowestSale(lowSales, lowMonth, lowStore, sales);
+    lowestSale(lowSales, lowMonth, lowStore, sales, stores);
     cout << "The lowest sales: " << endl
          << "------------------" << endl
          << "Store: " << lowStore << endl
@@ -136,7 +134,7 @@ int totalSalesByStore(int sales[5][12], int store){
     return sum;
 }
 
-void highestSale(int& highSales, int& highMonth, string& highStore, int sales[][12]){
+void highestSale(int& highSales, int& highMonth, string& highStore, int sales[][12], string stores[]){
     highSales = sales[0][0];
 
     for (int i = 0; i < 5 ; i++){
@@ -151,7 +149,7 @@ void highestSale(int& highSales, int& highMonth, string& highStore, int sales[][
     }
 }
 
-void lowestSale(int& lowSales, int& lowMonth, string& lowStore, int sales[][12]){
+void lowestSale(int& lowSales, int& lowMonth, string& lowStore, int sales[][12], string stores[]){
     lowSales = sales[0][0];
 
     for (int i = 0; i < 5 ; i++){

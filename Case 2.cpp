@@ -93,6 +93,7 @@ void printMissQuestion (int stuIndex, char stuAns [][numQuestions], char correct
 	}
 	else{
 		cout 
+		<< "Number of questions missed: " << wrongQues << endl
 		<< "List of the questions missed : \n" 
       	<< left << setw(15) 
 		<< "Question" << setw(18) << "Correct Answer" << setw(15) << "Student Answer \n" ;
@@ -101,7 +102,7 @@ void printMissQuestion (int stuIndex, char stuAns [][numQuestions], char correct
 			if ( TF[i] == 1 )
 				continue;
 			else {             // when TF == 0, print out the wrong ans
-				cout << left << setw(18) << ++i << setw(18) << correctAns [i] << setw(15) << stuAns [stuIndex][i] << endl ;
+				cout << left << setw(18) << i+1 << setw(18) << correctAns [i] << setw(15) << stuAns [stuIndex][i] << endl ;
 		  }
 		}
 	}

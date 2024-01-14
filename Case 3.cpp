@@ -9,8 +9,8 @@ void readFile(int[][12], string[]);
 int grandTotalSales(int[]);
 int totalSalesByMonth(int[5][12], int);
 int totalSalesByStore(int[5][12], int);
-void highestSale(int&, int&, string&, int[][12]);
-void lowestSale(int&, int&, string&, int[][12]);
+void highestSale(int&, int&, string&, int[][12], string[]);
+void lowestSale(int&, int&, string&, int[][12], string[]);
 
 int main(){
     // Define Variable

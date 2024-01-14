@@ -39,7 +39,7 @@ int main(){
     grandTotal = grandTotalSales(totalSalesStore);
     averageSales = grandTotal/12.0;
 
-    cout << "total of sales over all stores: RM " << fixed << setprecision(2) << setw(10) << grandTotal*1000.00 << endl
+    cout << "Total of sales over all stores: RM " << fixed << setprecision(2) << setw(10) << grandTotal*1000.00 << endl
          <<	"Average sales per month: RM " << fixed << setprecision(2) << setw(10) << averageSales*1000 << endl << endl;
 
     // The highest sales' store, month and the amount of sales
